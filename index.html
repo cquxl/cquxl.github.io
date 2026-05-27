@@ -1,13 +1,812 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale==1.0">
-    <title>Hi there 👋 I'm xiong lang</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lang Xiong, Ph.D. student at Chongqing University. Research in AI infrastructure, LLM compression and acceleration, and spatio-temporal big data.">
+  <meta name="author" content="Lang Xiong">
+  <meta property="og:title" content="Lang Xiong | AI Infrastructure & Efficient LLMs">
+  <meta property="og:description" content="Personal academic homepage of Lang Xiong.">
+  <meta property="og:image" content="assets/profile.jpg">
+  <title>Lang Xiong | 熊浪</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f2;
+      --surface: #ffffff;
+      --surface-soft: #f0f3ea;
+      --ink: #1d2420;
+      --muted: #5f6b64;
+      --line: #dfe4dc;
+      --accent: #0b6b57;
+      --accent-2: #b45f2a;
+      --accent-soft: #e4f0eb;
+      --shadow: 0 24px 80px rgba(34, 44, 38, 0.12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(223, 228, 220, 0.85);
+      background: rgba(247, 247, 242, 0.88);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .brand small {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 540;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .nav-links a:last-child {
+      color: #fff;
+      background: var(--ink);
+      border-radius: 999px;
+      padding: 8px 14px;
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    .section {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 76px 0;
+      min-width: 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) 340px;
+      gap: 56px;
+      align-items: center;
+      padding-top: 64px;
+      padding-bottom: 40px;
+    }
+
+    .hero > * {
+      min-width: 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 760;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 34px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 820px;
+      font-size: clamp(42px, 5.2vw, 66px);
+      line-height: 1.02;
+      letter-spacing: 0;
+      font-weight: 820;
+      overflow-wrap: anywhere;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 19px;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 760;
+    }
+
+    .button.primary {
+      color: #fff;
+      background: var(--ink);
+    }
+
+    .button.secondary {
+      color: var(--ink);
+      background: transparent;
+    }
+
+    .profile-panel {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .profile-panel::before {
+      content: "";
+      display: block;
+      height: 12px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+
+    .profile-photo {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: saturate(0.96) contrast(1.02);
+    }
+
+    .profile-meta {
+      padding: 24px;
+    }
+
+    .profile-meta h2 {
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .profile-meta p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      border: 1px solid var(--line);
+      background: var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .fact {
+      min-height: 128px;
+      padding: 24px;
+      background: var(--surface);
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .fact span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: 48px;
+      align-items: start;
+      margin-bottom: 34px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .research-grid,
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .tile,
+    .publication,
+    .timeline-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .tile {
+      min-height: 220px;
+      padding: 24px;
+    }
+
+    .tile .num {
+      color: var(--accent-2);
+      font-size: 13px;
+      font-weight: 780;
+    }
+
+    .tile h3,
+    .project h3 {
+      margin-top: 22px;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .tile p,
+    .project p,
+    .publication p,
+    .timeline-item p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .publications {
+      display: grid;
+      gap: 14px;
+    }
+
+    .publication {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 24px;
+      align-items: start;
+      padding: 22px;
+    }
+
+    .venue {
+      display: inline-flex;
+      width: fit-content;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 780;
+      white-space: nowrap;
+    }
+
+    .publication h3 {
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .publication a,
+    .project a {
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .project {
+      display: flex;
+      min-height: 260px;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 24px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .timeline-item {
+      padding: 24px;
+    }
+
+    .timeline-item span {
+      color: var(--accent-2);
+      font-size: 13px;
+      font-weight: 780;
+    }
+
+    .timeline-item h3 {
+      margin-top: 12px;
+      font-size: 20px;
+    }
+
+    .contact-band {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #fff;
+      padding: 42px;
+    }
+
+    .contact-band h2 {
+      max-width: 820px;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.12;
+    }
+
+    .contact-band p {
+      max-width: 720px;
+      margin-top: 16px;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .contact-links a {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      padding: 10px 16px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 760;
+    }
+
+    .site-footer {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 22px 0 42px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .nav-links {
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .hero,
+      .section-heading {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        gap: 36px;
+      }
+
+      .profile-panel {
+        max-width: 420px;
+      }
+
+      .facts,
+      .research-grid,
+      .project-grid,
+      .timeline {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .publication {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .nav-links a:not(:last-child) {
+        display: none;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .section {
+        width: min(100% - 28px, 1120px);
+        padding: 54px 0;
+      }
+
+      h1 {
+        font-size: 31px;
+        line-height: 1.08;
+        max-width: 320px;
+        word-break: break-word;
+      }
+
+      .hero-copy {
+        font-size: 17px;
+        max-width: 320px;
+        word-break: break-word;
+      }
+
+      .eyebrow {
+        display: flex;
+        font-size: 12px;
+        max-width: 320px;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        max-width: 320px;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .profile-panel {
+        max-width: 100%;
+      }
+
+      .facts,
+      .research-grid,
+      .project-grid,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .fact {
+        min-height: auto;
+      }
+
+      .contact-band {
+        padding: 28px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h3>Welcome to my homepage</h3>
-    <a href="https://blog.csdn.net/qq_40102732?spm=1010.2135.3001.5343">我的CSDN主页</a>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top">
+        Lang Xiong
+        <small>熊浪 | Chongqing University</small>
+      </a>
+      <div class="nav-links">
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="section hero" aria-labelledby="hero-title">
+      <div>
+        <div class="eyebrow">AI Infra · Efficient LLMs · Spatio-temporal Data</div>
+        <h1 id="hero-title">Building efficient AI systems for <span>compressed, accelerated, and spatially aware intelligence.</span></h1>
+        <p class="hero-copy">
+          I am Lang Xiong, a Ph.D. student in Computer Science and Technology at Chongqing University. My work focuses on large model compression and acceleration, AI infrastructure, and spatio-temporal big data modeling.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://scholar.google.com.hk/citations?user=kbz0F8AAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Google Scholar</a>
+          <a class="button secondary" href="https://github.com/cquxl" target="_blank" rel="noopener">GitHub</a>
+          <a class="button secondary" href="https://www.cqu.edu.cn/" target="_blank" rel="noopener">Chongqing University</a>
+        </div>
+      </div>
+
+      <aside class="profile-panel" aria-label="Profile card">
+        <img class="profile-photo" src="assets/profile.jpg" alt="Portrait of Lang Xiong">
+        <div class="profile-meta">
+          <h2>Lang Xiong · 熊浪</h2>
+          <p>Ph.D. Student, Computer Science and Technology<br>Chongqing University · Chongqing, China</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" aria-label="Research profile facts">
+      <div class="facts">
+        <div class="fact">
+          <strong>LLM</strong>
+          <span>Compression, pruning, and deployment-oriented acceleration</span>
+        </div>
+        <div class="fact">
+          <strong>AI Infra</strong>
+          <span>Systems tooling for efficient model research and engineering</span>
+        </div>
+        <div class="fact">
+          <strong>ST Data</strong>
+          <span>Traffic forecasting, dynamic graph learning, and time-series modeling</span>
+        </div>
+        <div class="fact">
+          <strong>Open</strong>
+          <span>Research code and reproducible project releases on GitHub</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="research">
+      <div class="section-heading">
+        <h2>Research Focus</h2>
+        <p>
+          My research is driven by a practical question: how can large-scale models become smaller, faster, and more reliable without losing the structure of the data they learn from?
+        </p>
+      </div>
+      <div class="research-grid">
+        <article class="tile">
+          <div class="num">01</div>
+          <h3>Large Model Compression</h3>
+          <p>Pruning, sparse optimization, calibration-aware error estimation, and attention distribution preservation for efficient LLM deployment.</p>
+        </article>
+        <article class="tile">
+          <div class="num">02</div>
+          <h3>Acceleration for Edge Intelligence</h3>
+          <p>Unified compression and acceleration methods that make intelligent systems practical under compute, memory, and latency constraints.</p>
+        </article>
+        <article class="tile">
+          <div class="num">03</div>
+          <h3>Spatio-temporal Big Data</h3>
+          <p>Graph convolution, Transformer architectures, and statistical structure for traffic forecasting and multi-dimensional time-series modeling.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="publications">
+      <div class="section-heading">
+        <h2>Selected Publications</h2>
+        <p>Representative papers spanning efficient LLMs and spatio-temporal modeling. Full publication details are maintained on Google Scholar.</p>
+      </div>
+      <div class="publications">
+        <article class="publication">
+          <span class="venue">AAAI 2026</span>
+          <div>
+            <h3>D2 Prune: Sparsifying Large Language Models via Dual Taylor Expansion and Attention Distribution Awareness</h3>
+            <p>Lang Xiong, Ning Liu, Ao Ren, Yuheng Bai, Haining Fang, Binyan Zhang, Zhe Jiang, Yujuan Tan, Duo Liu.</p>
+          </div>
+          <a href="https://ojs.aaai.org/index.php/AAAI/article/view/39932" target="_blank" rel="noopener">Paper</a>
+        </article>
+        <article class="publication">
+          <span class="venue">CIS 2024</span>
+          <div>
+            <h3>Generalized Spatial-temporal Regression Graph Convolutional Transformer for Traffic Forecasting</h3>
+            <p>Lang Xiong, Liyun Su, Shiyi Zeng, Xiangjing Li, Tong Wang, Feng Zhao. Complex & Intelligent Systems, 10, 7943-7964.</p>
+          </div>
+          <a href="https://link.springer.com/article/10.1007/s40747-024-01578-x" target="_blank" rel="noopener">Paper</a>
+        </article>
+        <article class="publication">
+          <span class="venue">ASOC 2024</span>
+          <div>
+            <h3>Dynamic Adaptive Graph Convolutional Transformer with Broad Learning System for Multi-dimensional Chaotic Time Series Prediction</h3>
+            <p>Work on phase-space reconstruction, graph learning, Transformer modeling, and broad learning for chaotic time-series prediction.</p>
+          </div>
+          <a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494624002904" target="_blank" rel="noopener">Paper</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-heading">
+        <h2>Open-source Projects</h2>
+        <p>Selected repositories from my GitHub profile, connecting paper implementations, efficient AI systems, and research tooling.</p>
+      </div>
+      <div class="project-grid">
+        <article class="project">
+          <div>
+            <h3>D2Prune</h3>
+            <p>Official PyTorch implementation for D2Prune, an AAAI 2026 pruning framework for sparsifying large language models.</p>
+            <div class="tags">
+              <span class="tag">PyTorch</span>
+              <span class="tag">LLM Compression</span>
+              <span class="tag">Pruning</span>
+            </div>
+          </div>
+          <a href="https://github.com/cquxl/D2Prune" target="_blank" rel="noopener">View repository</a>
+        </article>
+        <article class="project">
+          <div>
+            <h3>EdgeLite</h3>
+            <p>A unified compression and acceleration project for edge intelligence, focused on practical deployment constraints.</p>
+            <div class="tags">
+              <span class="tag">Edge AI</span>
+              <span class="tag">Acceleration</span>
+              <span class="tag">Efficiency</span>
+            </div>
+          </div>
+          <a href="https://github.com/cquxl/EdgeLite" target="_blank" rel="noopener">View repository</a>
+        </article>
+        <article class="project">
+          <div>
+            <h3>GSTRGCT</h3>
+            <p>Code for generalized spatial-temporal regression graph convolutional Transformer for traffic forecasting.</p>
+            <div class="tags">
+              <span class="tag">Traffic Forecasting</span>
+              <span class="tag">Graph Learning</span>
+              <span class="tag">Transformer</span>
+            </div>
+          </div>
+          <a href="https://github.com/cquxl/GSTRGCT" target="_blank" rel="noopener">View repository</a>
+        </article>
+        <article class="project">
+          <div>
+            <h3>DAGCT-BLS</h3>
+            <p>Research code for dynamic adaptive graph convolutional Transformer with broad learning system.</p>
+            <div class="tags">
+              <span class="tag">Time Series</span>
+              <span class="tag">Chaotic Systems</span>
+              <span class="tag">GCN</span>
+            </div>
+          </div>
+          <a href="https://github.com/cquxl/DAGCT-BLS" target="_blank" rel="noopener">View repository</a>
+        </article>
+        <article class="project">
+          <div>
+            <h3>Transformer-DDPM</h3>
+            <p>Notebook-based exploration combining Transformer-style modeling with diffusion model ideas.</p>
+            <div class="tags">
+              <span class="tag">Diffusion</span>
+              <span class="tag">Transformer</span>
+              <span class="tag">Notebook</span>
+            </div>
+          </div>
+          <a href="https://github.com/cquxl/Transformer-DDPM" target="_blank" rel="noopener">View repository</a>
+        </article>
+        <article class="project">
+          <div>
+            <h3>codex-cli-switcher</h3>
+            <p>A developer tool for switching Codex CLI profiles and improving research engineering workflows.</p>
+            <div class="tags">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Developer Tooling</span>
+              <span class="tag">AI Workflow</span>
+            </div>
+          </div>
+          <a href="https://github.com/cquxl/codex-cli-switcher" target="_blank" rel="noopener">View repository</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="timeline">
+      <div class="section-heading">
+        <h2>Academic Profile</h2>
+        <p>A concise view of my current academic identity and work direction.</p>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <span>Education</span>
+          <h3>Chongqing University</h3>
+          <p>Ph.D. student in Computer Science and Technology, with research interests in AI infrastructure and LLM compression.</p>
+        </article>
+        <article class="timeline-item">
+          <span>Location</span>
+          <h3>Chongqing, China</h3>
+          <p>Working across efficient AI systems, model compression, acceleration, and spatio-temporal big data research.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="contact-band">
+        <h2>Open to research collaboration on efficient LLMs, AI systems, and spatio-temporal intelligence.</h2>
+        <p>For papers, code, and project updates, the fastest entry points are GitHub and Google Scholar.</p>
+        <div class="contact-links">
+          <a href="https://github.com/cquxl" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://scholar.google.com.hk/citations?user=kbz0F8AAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Google Scholar</a>
+          <a href="mailto:840015412@qq.com">Email</a>
+          <a href="https://xionglang.top" target="_blank" rel="noopener">xionglang.top</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Lang Xiong. Built for GitHub Pages. Last updated: May 2026.</p>
+  </footer>
 </body>
 </html>

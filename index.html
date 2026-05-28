@@ -246,7 +246,6 @@
     .tile,
     .project,
     .timeline-item,
-    .framework-panel,
     .news-panel {
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -259,8 +258,7 @@
       overflow: hidden;
     }
 
-    .profile-panel::before,
-    .framework-panel::before {
+    .profile-panel::before {
       content: "";
       display: block;
       height: 12px;
@@ -378,8 +376,7 @@
     .project p,
     .publication p,
     .timeline-item p,
-    .news-panel p,
-    .framework-step p {
+    .news-panel p {
       margin-top: 10px;
       color: var(--muted);
       font-size: 15px;
@@ -392,10 +389,26 @@
 
     .publication {
       display: grid;
-      grid-template-columns: 120px 1fr;
+      grid-template-columns: 260px 1fr;
       gap: 24px;
       align-items: start;
       padding: 22px;
+    }
+
+    .publication-visual {
+      display: grid;
+      gap: 12px;
+    }
+
+    .publication-figure {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-soft);
+      object-fit: contain;
+      padding: 8px;
     }
 
     .venue {
@@ -448,65 +461,6 @@
       overflow-x: auto;
       font-size: 12px;
       line-height: 1.45;
-    }
-
-    .framework-panel {
-      overflow: hidden;
-    }
-
-    .framework-body {
-      padding: 24px;
-    }
-
-    .framework-tabs {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .framework-lane {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface-soft);
-      padding: 18px;
-    }
-
-    .framework-lane h3 {
-      font-size: 18px;
-      line-height: 1.25;
-    }
-
-    .framework-flow {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .framework-step {
-      min-height: 132px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      padding: 16px;
-      position: relative;
-    }
-
-    .framework-step:not(:last-child)::after {
-      content: ">";
-      position: absolute;
-      top: 50%;
-      right: -12px;
-      transform: translateY(-50%);
-      color: var(--accent);
-      font-weight: 820;
-    }
-
-    .framework-step strong {
-      display: block;
-      font-size: 14px;
-      line-height: 1.25;
     }
 
     .project {
@@ -620,25 +574,9 @@
       .project-grid,
       .timeline,
       .news-grid,
-      .framework-tabs {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
       .publication {
         grid-template-columns: 1fr;
         gap: 14px;
-      }
-
-      .framework-flow {
-        grid-template-columns: 1fr;
-      }
-
-      .framework-step:not(:last-child)::after {
-        content: "v";
-        top: auto;
-        right: 50%;
-        bottom: -18px;
-        transform: translateX(50%);
       }
     }
 
@@ -708,10 +646,6 @@
       .project-grid,
       .timeline,
       .news-grid,
-      .framework-tabs {
-        grid-template-columns: 1fr;
-      }
-
       .fact {
         min-height: auto;
       }
@@ -733,7 +667,6 @@
         <div class="nav-links">
           <a href="#research"><span class="en">Research</span><span class="zh">研究方向</span></a>
           <a href="#publications"><span class="en">Publications</span><span class="zh">论文</span></a>
-          <a href="#framework"><span class="en">Framework</span><span class="zh">方法图</span></a>
           <a href="#news"><span class="en">News</span><span class="zh">动态</span></a>
           <a href="#contact"><span class="en">Contact</span><span class="zh">联系</span></a>
         </div>
@@ -841,7 +774,10 @@
       </div>
       <div class="publications">
         <article class="publication">
-          <span class="venue">AAAI 2026</span>
+          <div class="publication-visual">
+            <img class="publication-figure" src="assets/paper-figures/d2prune-framework.png" alt="D2Prune algorithm framework">
+            <span class="venue">AAAI 2026</span>
+          </div>
           <div>
             <h3>D2 Prune: Sparsifying Large Language Models via Dual Taylor Expansion and Attention Distribution Awareness</h3>
             <p>Lang Xiong, Ning Liu, Ao Ren, Yuheng Bai, Haining Fang, Binyan Zhang, Zhe Jiang, Yujuan Tan, Duo Liu. Proceedings of the AAAI Conference on Artificial Intelligence, 40(32), 27171-27179.</p>
@@ -868,7 +804,10 @@
         </article>
 
         <article class="publication">
-          <span class="venue">CIS 2024</span>
+          <div class="publication-visual">
+            <img class="publication-figure" src="assets/paper-figures/gstrgct-framework.png" alt="GSTRGCT algorithm framework">
+            <span class="venue">CIS 2024</span>
+          </div>
           <div>
             <h3>Generalized Spatial-temporal Regression Graph Convolutional Transformer for Traffic Forecasting</h3>
             <p>Lang Xiong, Liyun Su, Shiyi Zeng, Xiangjing Li, Tong Wang, Feng Zhao. Complex & Intelligent Systems, 10, 7943-7964.</p>
@@ -894,7 +833,10 @@
         </article>
 
         <article class="publication">
-          <span class="venue">ASOC 2024</span>
+          <div class="publication-visual">
+            <img class="publication-figure" src="assets/paper-figures/dagct-framework.png" alt="DAGCT-BLS algorithm framework">
+            <span class="venue">ASOC 2024</span>
+          </div>
           <div>
             <h3>Dynamic Adaptive Graph Convolutional Transformer with Broad Learning System for Multi-dimensional Chaotic Time Series Prediction</h3>
             <p>Lang Xiong, Liyun Su, Xiaoyi Wang, Chunquan Pan. Applied Soft Computing, 157, 111516.</p>
@@ -918,52 +860,6 @@
             </details>
           </div>
         </article>
-      </div>
-    </section>
-
-    <section class="section" id="framework">
-      <div class="section-heading">
-        <h2><span class="en">Method Framework</span><span class="zh">方法框架图</span></h2>
-        <p>
-          <span class="en">A compact overview of two research lines: efficient LLM pruning and interpretable spatio-temporal regression.</span>
-          <span class="zh">用一张紧凑框架图概括两条研究主线：高效 LLM 剪枝与可解释时空回归建模。</span>
-        </p>
-      </div>
-      <div class="framework-panel">
-        <div class="framework-body">
-          <div class="framework-tabs">
-            <div class="framework-lane">
-              <h3>D2Prune · Efficient LLMs</h3>
-              <p><span class="en">Dual Taylor expansion and attention distribution awareness for sparse LLMs.</span><span class="zh">通过双重 Taylor 展开与注意力分布感知实现 LLM 稀疏化。</span></p>
-            </div>
-            <div class="framework-lane">
-              <h3>GSTRGCT · Spatio-temporal Data</h3>
-              <p><span class="en">Tensor-decomposed spatial and temporal regression for traffic forecasting.</span><span class="zh">基于张量分解的空间与时间回归，用于交通预测。</span></p>
-            </div>
-          </div>
-          <div class="framework-flow">
-            <div class="framework-step">
-              <strong><span class="en">Calibration / Data</span><span class="zh">校准数据 / 时空数据</span></strong>
-              <p><span class="en">Collect calibration activations or multi-sensor temporal observations.</span><span class="zh">获取校准激活或多传感器时序观测。</span></p>
-            </div>
-            <div class="framework-step">
-              <strong><span class="en">Structure Modeling</span><span class="zh">结构建模</span></strong>
-              <p><span class="en">Model activation perturbation or spatial-temporal hyper-planes.</span><span class="zh">建模激活扰动或空间/时间超平面。</span></p>
-            </div>
-            <div class="framework-step">
-              <strong><span class="en">Core Operator</span><span class="zh">核心算子</span></strong>
-              <p><span class="en">Taylor pruning, dynamic spatial weights, GCN, and Auto-Correlation attention.</span><span class="zh">Taylor 剪枝、动态空间权重、GCN 与自相关注意力。</span></p>
-            </div>
-            <div class="framework-step">
-              <strong><span class="en">Update / Fusion</span><span class="zh">更新 / 融合</span></strong>
-              <p><span class="en">Attention-aware weight update or tensor-product feature aggregation.</span><span class="zh">注意力感知权重更新或张量积特征聚合。</span></p>
-            </div>
-            <div class="framework-step">
-              <strong><span class="en">Efficient Output</span><span class="zh">高效输出</span></strong>
-              <p><span class="en">Sparse LLM deployment or accurate traffic/time-series forecasting.</span><span class="zh">输出稀疏 LLM 部署结果或高精度时空预测。</span></p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
